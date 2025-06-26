@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 碳足迹计算器</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <div class="logo">
+                <h1><a href="#">碳足迹</a></h1>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./calculator.html">碳足迹计算</a></li>
+                    <li><a href="./knowledge.html">知识小问答</a></li>
+                    <li><a href="./history.html" class="active">历史记录</a></li>
+                </ul>
+            </div>
+            <button id="loginBtn" class="login-btn">登录</button>
+        </div>
+    </div>
+    <div class="wrapper" style="margin-top:40px;">
+        <h2 style="text-align:center;margin-bottom:24px;">历史碳足迹记录</h2>
+        <div id="historyTableContainer" style="background:#fff;border-radius:12px;padding:24px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:32px;">
+            <table id="historyTable" style="width:100%;border-collapse:collapse;text-align:center;">
+                <thead>
+                    <tr style="background:#f3f5f7;">
+                        <th>日期</th>
+                        <th>食</th>
+                        <th>行</th>
+                        <th>用</th>
+                        <th>总计 (kgCO₂e)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 记录数据由JS填充 -->
+                </tbody>
+            </table>
+        </div>
+        <div id="historyChart" style="width:100%;max-width:800px;height:400px;margin:0 auto 40px auto;"></div>
+        <div class="encourage-box">
+          <span class="encourage-icon">🌟</span>
+          <span class="encourage-text">每一次记录，都是守护地球的行动！坚持低碳生活，你就是绿色榜样！</span>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+    <script src="./login.js"></script>
+    <script>
+    // 历史记录展示与可视化 - 只使用后端数据
+    function renderHistoryFromServer() {
+        const username = localStorage.getItem('currentUser');
+        if (!username) {
+            console.log('用户未登录');
+            return;
+        }
+        
+        fetch('/api/history?username=' + encodeURIComponent(username))
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.history)) {
+                    renderHistoryTable(data.history);
+                } else {
+                    console.log('获取历史记录失败:', data.msg);
+                    renderHistoryTable([]);
+                }
+            })
+            .catch(error => {
+                console.error('请求历史记录出错:', error);
+                renderHistoryTable([]);
+            });
+    }
+
+    function renderHistoryTable(history) {
+        const tableBody = document.querySelector('#historyTable tbody');
+        const chartDom = document.getElementById('historyChart');
+        
+        tableBody.innerHTML = '';
+        let foodArr = [], travelArr = [], utilityArr = [], totalArr = [], dateArr = [];
+        
+        history.forEach(item => {
+            tableBody.innerHTML += `<tr><td>${item.date}</td><td>${item.food}</td><td>${item.travel}</td><td>${item.utility}</td><td>${item.total}</td></tr>`;
+            dateArr.push(item.date);
+            foodArr.push(item.food);
+            travelArr.push(item.travel);
+            utilityArr.push(item.utility);
+            totalArr.push(item.total);
+        });
+        
+        // ECharts可视化
+        if (chartDom && window.echarts) {
+            const myChart = echarts.init(chartDom);
+            const option = {
+                title: { text: '碳足迹历史趋势', left: 'center' },
+                tooltip: { trigger: 'axis' },
+                legend: { data: ['食', '行', '用', '总计'], top: 30 },
+                xAxis: { type: 'category', data: dateArr },
+                yAxis: { type: 'value', name: 'kgCO₂e' },
+                series: [
+                    { name: '食', type: 'line', data: foodArr },
+                    { name: '行', type: 'line', data: travelArr },
+                    { name: '用', type: 'line', data: utilityArr },
+                    { name: '总计', type: 'line', data: totalArr, lineStyle: { width: 3 } }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    }
+
+    // 页面加载时从后端获取历史记录
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginBtn = document.getElementById('loginBtn');
+        const currentUser = localStorage.getItem('currentUser');
+        if (loginBtn && currentUser) {
+            loginBtn.innerText = '欢迎，' + currentUser;
+            loginBtn.disabled = true;
+            loginBtn.style.background = '#0a5833';
+            loginBtn.style.cursor = 'default';
+        }
+        
+        // 从后端加载历史记录
+        renderHistoryFromServer();
+    });
+    </script>
+</body>
+</html> 

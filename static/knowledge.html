@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碳足迹计算器</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- logo -->
+            <div class="logo">
+                <h1><a href="#">碳足迹</a></h1>
+            </div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./calculator.html">碳足迹计算</a></li>
+                    <li><a href="./knowledge.html">知识小问答</a></li>
+                    <li><a href="./history.html">历史记录</a></li>
+                </ul>
+            </div>
+            <button id="loginBtn" class="login-btn">登录</button>
+        </div>
+    </div>
+    <!-- banner区域 -->
+    <!-- 已移除banner -->
+    <!-- 吸引用户的引导横幅 -->
+    <div class="quiz-banner">
+        <span class="quiz-banner-icon">🎯</span>
+        <span class="quiz-banner-text">挑战你的碳知识，快来答题赢奖励！</span>
+    </div>
+    <!-- 知识小问答区 -->
+    <div class="quiz-container" style="margin-top:0;">
+        <div class="quiz-card quiz-animate">
+            <div class="quiz-title">知识小问答</div>
+            <div class="quiz-question" id="quizQuestion">题目加载中...</div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <button class="quiz-submit" id="quizSubmit">提交答案</button>
+            <div class="quiz-feedback" id="quizFeedback"></div>
+            <button class="quiz-next" id="quizNext" style="display:none;">下一题</button>
+            <div class="quiz-progress" id="quizProgress"></div>
+        </div>
+    </div>
+    <script src="./quiz.js"></script>
+    <script src="./login.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.getElementById('loginBtn');
+      const currentUser = localStorage.getItem('currentUser');
+      if (loginBtn && currentUser) {
+        loginBtn.innerText = '欢迎，' + currentUser;
+        loginBtn.disabled = true;
+        loginBtn.style.background = '#0a5833';
+        loginBtn.style.cursor = 'default';
+      }
+    });
+    </script>
+</body>
+</html> 

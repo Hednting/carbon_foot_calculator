@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碳足迹计算器</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- logo -->
+            <div class="logo">
+                <h1><a href="#">碳足迹</a></h1>
+            </div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./calculator.html">碳足迹计算</a></li>
+                    <li><a href="./knowledge.html">知识小问答</a></li>
+                    <li><a href="./history.html">历史记录</a></li>
+                </ul>
+            </div>
+            <button id="loginBtn" class="login-btn">登录</button>
+        </div>
+    </div>
+    <!-- banner区域 -->
+    <div class="banner">
+      <img class="banner-img" src="/static/images/eco.png" alt="生态与环境">
+      <div class="banner-text">
+        <div class="banner-title">你知道你的生活每天产生多少碳排放吗？</div>
+        <div class="banner-sub">地球需要你的行动</div>
+      </div>
+    </div>
+    <!-- 精美动画区 -->
+    <!-- 已移除 home-anim-area 动画区 -->
+    <!-- Tips轮播区 -->
+    <div class="tips-carousel">
+      <div class="tips-card" id="tipsCard">
+        <span class="tips-icon">🌱</span>
+        <span class="tips-text" id="tipsText">每天步行或骑行，减少碳排放。</span>
+      </div>
+      <div class="tips-dots" id="tipsDots"></div>
+    </div>
+    <!-- 动态数字区 -->
+    <div class="stats-section">
+      <div class="stat-card">
+        <span class="stat-icon">🌍</span>
+        <div class="stat-label">全球人均年碳排放</div>
+        <div class="stat-num" id="statGlobal">0</div>
+        <div class="stat-unit">吨CO₂e</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🇨🇳</span>
+        <div class="stat-label">中国人均年碳排放</div>
+        <div class="stat-num" id="statChina">0</div>
+        <div class="stat-unit">吨CO₂e</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📍</span>
+        <div class="stat-label">本地人均年碳排放</div>
+        <div class="stat-num" id="statLocal">0</div>
+        <div class="stat-unit">吨CO₂e</div>
+      </div>
+    </div>
+    <!-- 简短科普区 -->
+    <div class="intro-section">
+      <div class="intro-card">
+        <span class="intro-icon">❓</span>
+        <span class="intro-text">碳足迹是指个人或群体因日常活动产生的温室气体排放总量。每个人的选择都影响地球未来。</span>
+      </div>
+    </div>
+    <!-- 行动号召区 -->
+    <div class="cta-section">
+      <div class="cta-title">只需1分钟，了解你的碳足迹，守护绿色家园！</div>
+      <a href="./calculator.html" class="cta-btn">立即测算我的碳足迹</a>
+    </div>
+    <!-- 榜单/成就区 -->
+    <div class="leaderboard-section">
+      <div class="leaderboard-card">
+        <span class="leaderboard-label">本月已测算人数</span>
+        <span class="leaderboard-num" id="leaderCount">0</span>
+        <span class="leaderboard-unit">人</span>
+      </div>
+      <div class="leaderboard-card">
+        <span class="leaderboard-label">累计减少碳排放量</span>
+        <span class="leaderboard-num" id="leaderReduce">0</span>
+        <span class="leaderboard-unit">吨CO₂e</span>
+      </div>
+    </div>
+    <script src="./login.js"></script>
+    <div id="loginModal" class="login-modal" style="display:none;">
+        <div class="login-modal-content">
+            <span class="close" id="closeLogin">&times;</span>
+            <div id="loginPanel">
+                <h2>用户登录</h2>
+                <form id="loginForm">
+                    <label>用户名：<input type="text" id="username" required autocomplete="username"></label><br>
+                    <label>密码：<input type="password" id="password" required autocomplete="current-password"></label><br>
+                    <button type="submit" class="login-submit">登录</button>
+                </form>
+                <div id="loginError" style="color:red;margin-top:10px;display:none;"></div>
+                <div style="margin-top:12px;">
+                    <span style="color:#888;">还没有账号？</span>
+                    <a href="#" id="toRegister" style="color:#0a5833;cursor:pointer;">去注册</a>
+                </div>
+            </div>
+            <div id="registerPanel" style="display:none;">
+                <h2>用户注册</h2>
+                <form id="registerForm">
+                    <label>用户名：<input type="text" id="regUsername" required autocomplete="username"></label><br>
+                    <label>密码：<input type="password" id="regPassword" required autocomplete="new-password"></label><br>
+                    <button type="submit" class="login-submit">注册</button>
+                </form>
+                <div id="registerError" style="color:red;margin-top:10px;display:none;"></div>
+                <div style="margin-top:12px;">
+                    <span style="color:#888;">已有账号？</span>
+                    <a href="#" id="toLogin" style="color:#0a5833;cursor:pointer;">去登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- Tips轮播JS -->
+<script src="./tips-carousel.js"></script>
+</html>

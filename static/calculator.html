@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>碳足迹计算器</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- logo -->
+            <div class="logo">
+                <h1><a href="#">碳足迹</a></h1>
+            </div>
+            <!-- 导航 -->
+            <div class="nav">
+                <ul>
+                    <li><a href="./index.html">首页</a></li>
+                    <li><a href="./calculator.html" class="active">碳足迹计算</a></li>
+                    <li><a href="./knowledge.html">知识小问答</a></li>
+                    <li><a href="./history.html">历史记录</a></li>
+                </ul>
+            </div>
+            <button id="loginBtn" class="login-btn">登录</button>
+        </div>
+    </div>
+    <!-- 碳足迹计算器新版布局 -->
+    <div class="carbon-calc-container">
+        <!-- 左侧菜单栏 -->
+        <div class="carbon-sidebar">
+            <div class="main-category">
+                <button class="main-btn active" data-main="food">食</button>
+                <div class="anim-food calc-anim"></div>
+                <div class="sub-category" id="subCategory" style="display:none;">
+                    <button class="sub-btn active" data-sub="drink">饮品类</button>
+                    <button class="sub-btn" data-sub="meat">肉蛋类</button>
+                    <button class="sub-btn" data-sub="fruit">果蔬类</button>
+                    <button class="sub-btn" data-sub="other">其他</button>
+                </div>
+                <button class="main-btn" data-main="travel">行</button>
+                <div class="anim-travel calc-anim"></div>
+                <button class="main-btn" data-main="utility">用</button>
+                <div class="anim-utility calc-anim"></div>
+            </div>
+        </div>
+        <!-- 右侧内容区 -->
+        <div class="carbon-main">
+            <!-- 顶部搜索框 -->
+            <div class="carbon-search-bar">
+                <input type="text" id="searchInput" placeholder="请输入搜索名称" />
+                <button id="searchBtn">搜索</button>
+            </div>
+            <!-- 内容区：饮品类（静态示例，后续JS切换） -->
+            <div class="carbon-content" id="carbonContent"></div>
+            <div style="text-align:center;margin:30px 0 0 0;">
+                <button id="calcBtn" class="calc-btn">算算我的碳足迹</button>
+            </div>
+            <div id="result" style="margin-top:20px;display:none;text-align:center;"></div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>    
